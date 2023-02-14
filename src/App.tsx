@@ -11,38 +11,40 @@ type TodosType = {
 }
 
 function App() {
-    // useEffect(() =>{
-    //   fetch('https://jsonplaceholder.typicode.com/todos/1')
-    //       .then(response => response.json())
-    //       .then(json => console.log(json))
-    // },[])
+
 
     const [todos, setTodos] = useState<TodosType[]>([])
-    console.log(todos)
 
-    const showUpHandler = () => {
+    useEffect(() => myFetch(), [])
+
+    const myFetch = () => {
         fetch('https://jsonplaceholder.typicode.com/todos')
             .then(response => response.json())
             .then(json => setTodos(json))
     }
+    const showUpHandler = () => {
+        myFetch()
+    }
+
+    const deleteUpHandler = () => {
+        setTodos([])
+    }
 
     const mappedTodos = todos.map(t => {
-            return (
-                <div className="App">
-                    <li key={t.id}>
-                        <span>{t.id}</span>
-                        <span>{t.title}</span>
-                        <input type="checkbox" checked={t.completed}></input>
-                    </li>
-                </div>
-            )
-        })
+        return (
+            <div className="App">
+                <li key={t.id}>
+                    <span>{t.id}</span>
+                    <span>{t.title}</span>
+                    <input type="checkbox" checked={t.completed}></input>
+                </li>
+            </div>
+        )
+    })
     return (
         <div className="App">
-            <Button
-                name={"Show up"}
-                callBack={showUpHandler}
-            />
+            <Button name={"Show up"} callBack={showUpHandler}/>
+            <Button name={"Delete"} callBack={deleteUpHandler}/>
             <ul>
                 {mappedTodos}
             </ul>
