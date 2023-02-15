@@ -1,11 +1,11 @@
 import React from 'react';
 
-type ButtonPropsType = {
+type SuperButtonPropsType = {
     name: string
     callBack: () => void
 }
 
-export const Button = (props:ButtonPropsType) => {
+export const SuperButton = (props:SuperButtonPropsType) => {
     const onClickHandler = () => {
         props.callBack()
     }
